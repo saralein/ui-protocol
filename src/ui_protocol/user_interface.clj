@@ -1,13 +1,24 @@
 (ns ui-protocol.user-interface)
 
 (defprotocol UI
-  (display-prompt [x message])
-  (get-input [x]))
+  (display-prompt [this message])
+  (get-input [this])
+  (prompt-for-input [this message]))
 
 (defrecord ConsoleUI []
   UI
-  (display-prompt [x message] (println message))
-  (get-input [x] (read-line)))
+  (display-prompt
+    [this message]
+    (println message))
+
+  (get-input
+    [this]
+    (read-line))
+
+  (prompt-for-input
+    [this message]
+    (.display-prompt this message)
+    (.get-input this)))
 
 (defn create
   []

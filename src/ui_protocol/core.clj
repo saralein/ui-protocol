@@ -5,4 +5,4 @@
 (defn -main
   []
   (let [example-ui (ui/create)]
-    (ui/display-prompt example-ui "Hi.")))
+    (ui/prompt-for-input example-ui "Please enter a number: ")))
