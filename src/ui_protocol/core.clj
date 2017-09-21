@@ -1,6 +1,8 @@
 (ns ui-protocol.core
-  (:gen-class))
+  (:gen-class)
+  (:require [ui-protocol.user-interface :as ui]))
 
 (defn -main
-  [& args]
-  ())
+  []
+  (let [example-ui (ui/create)]
+    (ui/display-prompt example-ui "Hi.")))
