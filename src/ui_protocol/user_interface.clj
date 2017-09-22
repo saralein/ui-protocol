@@ -1,25 +1,26 @@
-(ns ui-protocol.user-interface)
+(ns ui-protocol.user-interface
+  (:require [ui-protocol.input-output :as io]))
 
 (defprotocol UI
   (display-prompt [this message])
   (get-input [this])
   (prompt-for-input [this message]))
 
-(defrecord ConsoleUI []
+(defrecord ConsoleUI [console-io]
   UI
   (display-prompt
     [this message]
-    (println message))
+    (io/display console-io message))
 
   (get-input
     [this]
-    (read-line))
+    (io/input console-io))
 
   (prompt-for-input
     [this message]
     (.display-prompt this message)
     (.get-input this)))
 
-(defn create
-  []
-  (map->ConsoleUI {}))
+(defn create-console-ui
+  [console-io]
+  (map->ConsoleUI {:console-io console-io}))
